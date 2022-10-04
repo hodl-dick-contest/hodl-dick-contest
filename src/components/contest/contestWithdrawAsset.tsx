@@ -22,9 +22,8 @@ export const ContestWithdrawAsset = (props: { contractAddress: string }) => {
     return (
         <div className="w-full flex flex-col justify-start items-start gap-2">
 
-            <div className="text-slate-100 text-left">
-                {/* Check that you allowed the asset to be controled by the contest contract. */}
-            </div>
+            {/* <div className="text-slate-100 text-left">            
+            </div> */}
 
             <div className="py-4 w-full flex flex-col justify-start items-start gap-4 text-slate-100">
                 
@@ -48,10 +47,8 @@ export const ContestWithdrawAsset = (props: { contractAddress: string }) => {
                         isRefetching={ maxWithdraw.isRefetching }
                         refetch={ maxWithdraw.refetch }
                     />
-                </div>
-            
+                </div>            
             </div>
-
         </div>        
     )
 }

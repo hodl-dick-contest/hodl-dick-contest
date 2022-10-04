@@ -7,7 +7,7 @@ export const Footer = () =>  {
             <div className="flex flex-row items-center justify-between">
                 
                 <div className="text-sm text-slate-200">
-                    Copyright © 2022 Hodl Dick Contest
+                    Copyright © 2022 Hodl 🍆 Contest
                 </div>
 
                 <div className="flex flex-row items-center justify-between gap-8">
@@ -17,6 +17,6 @@ export const Footer = () =>  {
                     <PublicIconForTwitter />
                 </div>
 
-            </div>     
+            </div>
     );
 }

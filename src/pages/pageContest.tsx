@@ -40,8 +40,6 @@ export const PageContest = () => {
                 <ContestSubTitle subtitle="Withdraw assets"/>
                 <ContestWithdrawAsset contractAddress={ contractAddress! } />
 
-                {/* <ContestSubTitle subtitle="Withdraw"/> */}
-
                 <ContestSubTitle subtitle="Preview"/>
                 <ContestItemsWarpper>                
                     <ContestUserPreviewDeposit address={ contractAddress }/>
