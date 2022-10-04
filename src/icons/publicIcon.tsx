@@ -43,7 +43,7 @@ export const PublicIconForGithub = () => {
     return (
         <PublicIcon
             name=""
-            href="https://github.com/upfin"
+            href="https://github.com/hodl-dick-contest/hodl-dick-contest"
             symbol={ <FaGithub className="h-5 w-5"/> }
         />
     );

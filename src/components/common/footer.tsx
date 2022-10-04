@@ -1,4 +1,4 @@
-import { PublicIconForDiscord, PublicIconForGithub, PublicIconForTelegram, PublicIconForTwitter } from "../../icons/publicIcon";
+import { PublicIconForGithub } from "../../icons/publicIcon";
 
 
 export const Footer = () =>  {
@@ -10,11 +10,8 @@ export const Footer = () =>  {
                     Copyright © 2022 Hodl 🍆 Contest
                 </div>
 
-                <div className="flex flex-row items-center justify-between gap-8">
-                    <PublicIconForDiscord />
+                <div className="flex flex-row items-center justify-between gap-8">                    
                     <PublicIconForGithub />
-                    <PublicIconForTelegram />
-                    <PublicIconForTwitter />
                 </div>
 
             </div>
