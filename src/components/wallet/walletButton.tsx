@@ -49,7 +49,7 @@ export const WalletButton = () => {
                         text-sm
                         font-semibold
                         text-stone-200 hover:text-white
-                        bg-slate-800 hover:bg-slate-700
+                        bg-slate-800 hover:bg-purple-400/60
                         transition ease-in-out duration-100 hover:scale-110
                         "
                       onClick={ openConnectModal } 
@@ -78,7 +78,7 @@ export const WalletButton = () => {
                         text-sm
                         font-semibold
                         text-stone-200 hover:text-white
-                        bg-slate-800 hover:bg-slate-700
+                        bg-slate-800 hover:bg-purple-400/60
                         transition ease-in-out duration-100 hover:scale-110
                         "
                         onClick={ openChainModal }
@@ -109,7 +109,7 @@ export const WalletButton = () => {
                         text-sm
                         font-semibold
                         text-stone-200 hover:text-white
-                        bg-slate-800 hover:bg-slate-700
+                        bg-slate-800 hover:bg-purple-400/60
                         transition ease-in-out duration-100 hover:scale-110
                         "
                         onClick={ openAccountModal }
