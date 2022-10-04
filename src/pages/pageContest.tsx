@@ -8,13 +8,19 @@ import { ContestSubTitle, ContestTitle } from "../components/contest/contestTitl
 import { ContestUserConvertToAssets, ContestUserConvertToShares } from "../components/contest/contestUserConverters";
 import { ContestUserPreviewDeposit, ContestUserPreviewWithdraw } from "../components/contest/contestUserPreviews";
 import { ContestWithdrawAsset } from "../components/contest/contestWithdrawAsset";
+import { useAccount } from "wagmi";
 
 
 export const PageContest = () => {
 
     const { contractAddress } = useParams();
+    const { isConnected } = useAccount();
     const navigate = useNavigate();
-    
+
+    if (!isConnected) {
+        navigate("/");
+    }
+
     return (
         <Page>
         
@@ -59,4 +65,6 @@ export const PageContest = () => {
             
         </Page>
     );
+
+
 }
