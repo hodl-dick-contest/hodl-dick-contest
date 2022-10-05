@@ -1,11 +1,14 @@
 import { useState } from "react";
-import { useContractReadBalanceOf } from "../../hooks/useContractReadContest";
 import { useAccount } from "wagmi";
-import { useContractWriteDeposit } from "../../hooks/useContractWriteContest";
 import { BigNumber } from "ethers";
+
+import { useContractReadBalanceOf } from "../../hooks/useContractReadContest";
+import { useContractWriteDeposit } from "../../hooks/useContractWriteContest";
+
+import { EthAddress } from "../wallet/ethAddress";
+
 import { ContestCurrentValueview } from "./contestCurrentValueView";
 import { ContestContractWriteView } from "./contestContractWriteView";
-import { EthAddress } from "../wallet/ethAddress";
 
 
 export const ContestDepositAsset = (props: { contractAddress: string }) => {

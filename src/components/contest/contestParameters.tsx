@@ -1,18 +1,7 @@
 import { useContractReadAsset, useContractReadLastUpdate, useContractReadLockProfit, useContractReadTotalAssets, useContractReadTotalSupply, useContractReadVestingPeriod, useContractReadVestingProfit, useContractReadWithdrawFee  } from "../../hooks/useContractReadContest";
+import { convertSecondsToString } from "../../utils/convertSecondsToString";
 import { ContestItemsWarpper } from "./contestItemsWrapper";
 import { ContestParameter } from "./contestParameter";
-
-function secondsToHms(secs: string) {
-    let d = Number(secs);
-    var h = Math.floor(d / 3600);
-    var m = Math.floor(d % 3600 / 60);
-    var s = Math.floor(d % 3600 % 60);
-
-    var hDisplay = h > 0 ? h + (h === 1 ? " hour " : " hours ") : "";
-    var mDisplay = m > 0 ? m + (m === 1 ? " minute " : " minutes ") : "";
-    var sDisplay = s > 0 ? s + (s === 1 ? " second" : " seconds") : "";
-    return hDisplay + mDisplay + sDisplay; 
-}
 
 
 export const ContestParameters = (props: {contractAddress: string}) => {
@@ -28,7 +17,7 @@ export const ContestParameters = (props: {contractAddress: string}) => {
 
     let duration;
     if (vestingPeriod.value) {
-        duration = secondsToHms(vestingPeriod.value);
+        duration = convertSecondsToString(Number(vestingPeriod.value));
     }
 
     return (
@@ -42,28 +31,28 @@ export const ContestParameters = (props: {contractAddress: string}) => {
             />
 
             <ContestParameter 
-                label={ "Last Update" }
+                label={ "Last update" }
                 value={ lastUpdate.value }
                 isLoading={ lastUpdate.isLoading }
                 isError={ lastUpdate.isError }
             />
 
             <ContestParameter 
-                label={ "Locked Profite" }
+                label={ "Locked Profit" }
                 value={ lockProfit.value }
                 isLoading={ lockProfit.isLoading }
                 isError={ lockProfit.isError }                
             />                    
 
             <ContestParameter 
-                label={ "Tota assets" }
+                label={ "Total assets" }
                 value={ totalAssets.value }
                 isLoading={ totalAssets.isLoading }
                 isError={ totalAssets.isError }         
             />
 
             <ContestParameter 
-                label={ "Tota supply" }
+                label={ "Total supply" }
                 value={ totalSupply.value }
                 isLoading={ totalSupply.isLoading }
                 isError={ totalSupply.isError }        
@@ -73,7 +62,7 @@ export const ContestParameters = (props: {contractAddress: string}) => {
                 label={ "Vesting period" }
                 value={ (duration !== undefined) ? duration : "" }
                 isLoading={ vestingPeriod.isLoading }
-                isError={ vestingPeriod.isError }    
+                isError={ vestingPeriod.isError }
             />
 
             <ContestParameter 
@@ -85,7 +74,7 @@ export const ContestParameters = (props: {contractAddress: string}) => {
 
             <ContestParameter 
                 label={ "Witdraw Fee" }
-                value={ withdrawFee.value }
+                value={ (100 * Number(withdrawFee.value)/1000000000).toString() + " %"  }
                 isLoading={ withdrawFee.isLoading }
                 isError={ withdrawFee.isError }       
             />

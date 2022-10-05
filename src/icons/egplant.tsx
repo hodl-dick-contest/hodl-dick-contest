@@ -1,5 +1,9 @@
-import { ReactComponent as EgplantSvg } from "./egplant.svg";
+import { ReactComponent as EgplantSvg } from "./svg/egplant.svg";
 
 export const EgplantIcon = () => {
+    return <EgplantSvg className="h-9 w-9" />;
+}
+
+export const EgplantIconBig = () => {
     return <EgplantSvg className="h-16 w-16" />;
 }
