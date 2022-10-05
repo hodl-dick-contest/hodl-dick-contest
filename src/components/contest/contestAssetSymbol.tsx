@@ -27,11 +27,11 @@ export const ContestAssetSymbol = (props: PropsContestAssetSymbol) => {
                     (props.isContest === true) ?
                     <WrapIcon>
                         <div className="rounded-full bg-slate-700 p-4">
-                            <EthereumIcon isBig={ true } /> 
+                            <EthereumIcon isLarge={ true } /> 
                         </div>
                     </WrapIcon> :
                     <div className="rounded-full bg-slate-700 p-4">                    
-                        <EthereumIcon isBig={ true } />
+                        <EthereumIcon isLarge={ true } />
                     </div>
                 }
             </div>

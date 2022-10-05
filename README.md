@@ -1,6 +1,6 @@
-# Hodl Dick Contest
+# Holder Dick Contest
 
-Front for the Hodl Dick Contest.
+Front for the Holder Dick Contest.
 
 ## Contracts
 

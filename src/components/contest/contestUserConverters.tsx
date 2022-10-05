@@ -23,7 +23,7 @@ export const ContestUserConvertToShares = (props: { address?: string }) => {
     const converter = useContratReadConvertToShares(props.address!, userAssets.toString());
     return (
         <ContestUserPreview
-            label={ "Convert asset to sahres" }
+            label={ "Convert assets to shares" }
             value={ userAssets.toNumber().toString() }
             updateValue={ (item: string) => setUserAssets(BigNumber.from(item)) }
             fetched={ (!converter.isLoading && !converter.isError ) ? converter.value : "" }
