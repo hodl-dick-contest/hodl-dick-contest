@@ -21,7 +21,7 @@ const useContractReadByValue = (contractAddress: string, functionName: string, a
         contractInterface: contractAbi,
         functionName: functionName,
         args: args,
-        cacheOnBlock: true,
+        cacheTime: 30_000,
     });
 
     useEffect(() => {
