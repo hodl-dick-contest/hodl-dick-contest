@@ -10,7 +10,7 @@ export const Header = () =>  {
                     <EgplantIconBig />
                 </div>
                 <div className="text-left text-2xl font-bold text-slate-200 w-full">
-                    The Hodl Dick Contest
+                    The Holder Dick Contest
                 </div>
             </div>
             <div className="flex justify-end">
