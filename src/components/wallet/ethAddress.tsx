@@ -11,7 +11,7 @@ export interface PropsEthAddress {
 
 export const EthAddress = (props: PropsEthAddress) => {
     return (
-        <div className="px-4 py-2 h-11 flex flex-row items-center justify-start gap-2 rounded-lg bg-slate-800">
+        <div className="px-4 py-1 flex flex-row items-center justify-start gap-2 rounded-lg bg-slate-900 border border-slate-600">
             <div className="text-sm font-mono">
                 { props.label }
             </div>

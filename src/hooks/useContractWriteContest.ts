@@ -25,6 +25,10 @@ export const useContractWriteDeposit = (contractAddress: string, assets: BigNumb
     return useContractWriteByValue(contractAddress, "deposit", [ (assets) ? assets.toString() : "" , receiver ]);
 }
 
+export const useContractWriteRedeem = (contractAddress: string, shares: BigNumber|undefined, receiver: string, owner: string) => {
+    return useContractWriteByValue(contractAddress, "withdraw", [ (shares) ? shares.toString() : "" , receiver, owner ]);
+}
+
 export const useContractWriteWithdraw = (contractAddress: string, assets: BigNumber|undefined, receiver: string, owner: string) => {
     return useContractWriteByValue(contractAddress, "withdraw", [ (assets) ? assets.toString() : "" , receiver, owner ]);
 }

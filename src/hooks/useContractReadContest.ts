@@ -21,7 +21,8 @@ const useContractReadByValue = (contractAddress: string, functionName: string, a
         contractInterface: contractAbi,
         functionName: functionName,
         args: args,
-        cacheTime: 30_000,
+        // cacheTime: 30_000,
+        cacheOnBlock: true,
     });
 
     useEffect(() => {
@@ -63,6 +64,10 @@ export const useContractReadLockProfit = (contractAddress: string): PropsUseCont
     return useContractReadByValue(contractAddress, "lockProfit");
 }
 
+export const useContractReadMaxRedeem= (contractAddress: string, owner: string): PropsUseContractReadValue => {
+    return useContractReadByValue(contractAddress, "maxRedeem", [ owner ]);
+}
+
 export const useContractReadMaxWithdraw = (contractAddress: string, owner: string): PropsUseContractReadValue => {
     return useContractReadByValue(contractAddress, "maxWithdraw", [ owner ]);
 }
@@ -73,6 +78,10 @@ export const useContractReadName = (contractAddress: string): PropsUseContractRe
 
 export const useContractReadPreviewDeposit = (contractAddress: string, deposit: BigNumber): PropsUseContractReadValue => {
     return useContractReadByValue(contractAddress, "previewDeposit", [deposit.toString()] );
+}
+
+export const useContractReadPreviewRedeem = (contractAddress: string, withdraw: BigNumber): PropsUseContractReadValue => {
+    return useContractReadByValue(contractAddress, "previewRedeem", [withdraw.toString()] );
 }
 
 export const useContractReadPreviewWithdraw = (contractAddress: string, withdraw: BigNumber): PropsUseContractReadValue => {

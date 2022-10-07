@@ -1,4 +1,5 @@
 import { useContractReadAsset, useContractReadLastUpdate, useContractReadLockProfit, useContractReadTotalAssets, useContractReadTotalSupply, useContractReadVestingPeriod, useContractReadVestingProfit, useContractReadWithdrawFee  } from "../../hooks/useContractReadContest";
+import { ComputeCurrentTimeDifference } from "../../utils/computeTimeDifference";
 import { convertSecondsToString } from "../../utils/convertSecondsToString";
 import { ContestItemsWarpper } from "./contestItemsWrapper";
 import { ContestParameter } from "./contestParameter";
@@ -32,7 +33,7 @@ export const ContestParameters = (props: {contractAddress: string}) => {
 
             <ContestParameter 
                 label={ "Last update" }
-                value={ lastUpdate.value }
+                value={ (lastUpdate.value) ? ComputeCurrentTimeDifference(Number(lastUpdate.value)*1000) : "" }
                 isLoading={ lastUpdate.isLoading }
                 isError={ lastUpdate.isError }
             />

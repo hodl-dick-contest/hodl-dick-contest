@@ -9,13 +9,13 @@ import { ContestUserConvertToAssets, ContestUserConvertToShares } from "../compo
 import { ContestUserPreviewDeposit, ContestUserPreviewWithdraw } from "../components/contest/contestUserPreviews";
 import { ContestWithdrawAsset } from "../components/contest/contestWithdrawAsset";
 import { useAccount } from "wagmi";
-import { useState } from "react";
-import { Modal } from "../components/common/modal";
+import { Tab } from "@headlessui/react";
+import { TabTitle } from "../components/common/tabTitle";
+import { TabPanel } from "../components/common/tabPanel";
 
 
 export const PageContest = () => {
-
-    const [openParams, setOpenParams] = useState<boolean>(false);
+    
     const { contractAddress } = useParams();
     const { isConnected } = useAccount();
     const navigate = useNavigate();
@@ -30,6 +30,7 @@ export const PageContest = () => {
             <div className="w-full flex flex-col justify-start items-start gap-6">
                 
                 <div className="w-full flex flex-row justify-between items-center gap-4">
+
                     <div className="min-w-fit">
                         <ContestTitle contractAddress={ contractAddress! }/>
                     </div>
@@ -41,50 +42,60 @@ export const PageContest = () => {
                         >
                             Back to contests
                         </button>
-                        <button 
-                            className="rounded-full px-4 py-1 text-slate-200 hover:text-white bg-slate-600 hover:bg-purple-400/60 transition ease-in-out duration-150 hover:scale-105 font-semibold"
-                            onClick={ () => setOpenParams(true) }
-                        >
-                            Parameters
-                        </button>
                     </div>
 
                 </div>
 
-                <ContestSubTitle subtitle="Approve"/>
-                <ContestApproveAsset contractAddress={ contractAddress! } />
+                <Tab.Group>
 
-                <ContestSubTitle subtitle="Deposit assets"/>
-                <ContestDepositAsset contractAddress={ contractAddress! } />
+                    <Tab.List className="pt-4 pb-2 w-full flex flex-row justify-start items-center gap-4">                    
+                        <TabTitle> Deposit </TabTitle>
+                        <TabTitle> Redeem </TabTitle>
+                        <TabTitle> Approve </TabTitle>
+                        <TabTitle> Parameters </TabTitle>
+                    </Tab.List>
 
-                <ContestSubTitle subtitle="Withdraw assets"/>
-                <ContestWithdrawAsset contractAddress={ contractAddress! } />
+                    <Tab.Panels className="w-full flex py-2">
 
-                <Modal isOpen={ openParams } closeModal={ () => setOpenParams(false) }>
 
-                    <div className="px-6 py-6 flex flex-col gap-4">
+                        <TabPanel> 
+                            <ContestDepositAsset contractAddress={ contractAddress! } />
+                        </TabPanel>
+
+                        <TabPanel>
+                            <ContestWithdrawAsset contractAddress={ contractAddress! } />
+                        </TabPanel>
+
+                        <TabPanel> 
+                            <ContestApproveAsset contractAddress={ contractAddress! } />
+                        </TabPanel>
+
+                        <TabPanel>
+                            <div className="px-6 py-6 flex flex-col gap-4">
                         
-                        <ContestSubTitle subtitle="Parameters"/>
-                        <ContestParameters contractAddress={ contractAddress! } />
+                            <ContestSubTitle subtitle="Parameters"/>
+                            <ContestParameters contractAddress={ contractAddress! } />
 
-                        <ContestSubTitle subtitle="Preview"/>
-                        <ContestItemsWarpper>                
-                            <ContestUserPreviewDeposit address={ contractAddress }/>
-                            <ContestUserPreviewWithdraw address={ contractAddress }/>
-                        </ContestItemsWarpper>
+                            <ContestSubTitle subtitle="Preview"/>
+                            <ContestItemsWarpper>                
+                                <ContestUserPreviewDeposit address={ contractAddress }/>
+                                <ContestUserPreviewWithdraw address={ contractAddress }/>
+                            </ContestItemsWarpper>
 
-                        <ContestSubTitle subtitle="Converters"/>
-                            <ContestItemsWarpper>
-                            <ContestUserConvertToAssets address={ contractAddress }/>
-                            <ContestUserConvertToShares address={ contractAddress }/>
-                        </ContestItemsWarpper>
+                            <ContestSubTitle subtitle="Converters"/>
+                                <ContestItemsWarpper>
+                                <ContestUserConvertToAssets address={ contractAddress }/>
+                                <ContestUserConvertToShares address={ contractAddress }/>
+                            </ContestItemsWarpper>
 
-                    </div>
+                            </div>
+                        </TabPanel>
 
-                </Modal>
+                    </Tab.Panels>
+
+                </Tab.Group>
                 
             </div>
-
             
         </Page>
     );

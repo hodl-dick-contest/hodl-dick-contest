@@ -1,59 +1,100 @@
-import { useState } from "react";
-import { useContractReadAllowance, useContractReadAsset } from "../../hooks/useContractReadContest";
-import { useAccount } from "wagmi";
-import { useContractWriteApprove } from "../../hooks/useContractWriteContest";
+import { useState, useEffect } from "react";
 import { BigNumber } from "ethers";
-import { ContestCurrentValueview } from "./contestCurrentValueView";
-import { ContestContractWriteView } from "./contestContractWriteView";
+import { useAccount } from "wagmi";
+
+import { useContractWriteApprove } from "../../hooks/useContractWriteContest";
+import { useContractReadAllowance, useContractReadAsset, useContractReadBalanceOf } from "../../hooks/useContractReadContest";
+
+import { ChooseUnit } from "../common/chooseUnit";
+import { TransactionButton } from "../common/transactionButton";
+import { TransactionInfo } from "../common/transactionInfo";
+import { TransactionInput } from "../common/transactionInput";
+import { TransactionPanel } from "../common/transactionPanel";
+import { ChooseRate } from "../common/choosePercentage";
 import { EthAddress } from "../wallet/ethAddress";
-import { ethers } from "ethers";
+import { helperFormatUnit, helperParseUnit } from "../../utils/convertValueBasedOnUnit";
 
 
 export const ContestApproveAsset = (props: { contractAddress: string }) => {
 
+    const [unit, setUnit] = useState<string>("ether");
     const [userAllowance, setUserAllowance] = useState<string>("");
+    const [userAllowanceInWei, setUserAllowanceInWei] = useState<BigNumber>(BigNumber.from("0"));
 
     const { address } = useAccount();
-    const asset = useContractReadAsset(props.contractAddress);
 
-    const allowance = useContractReadAllowance(asset.value!, address!, props.contractAddress!)    
+    const currentAsset = useContractReadAsset(props.contractAddress);
+    const currentBalance = useContractReadBalanceOf(currentAsset.value!, address!);
+    const currentAllowance = useContractReadAllowance(currentAsset.value!, address!, props.contractAddress!);
+    
+    const displayCurrentBalance = helperFormatUnit(currentBalance.value!, unit);
+    const displayCurrentAllowance = helperFormatUnit(currentAllowance.value!, unit);
 
-    const userAllowanceInWei = (userAllowance) ? BigNumber.from(ethers.utils.parseUnits(userAllowance, "ether").toString()) : BigNumber.from("0");
-    const { writeContract, transaction } = useContractWriteApprove(asset.value!, props.contractAddress, userAllowanceInWei!)
+    const { writeContract, transaction } = useContractWriteApprove(currentAsset.value!, props.contractAddress, userAllowanceInWei)
+
+    const changeRate = (item: number): string => {
+        if (!currentBalance.value) return "";
+        const multiplier = BigNumber.from(item);
+        const divider = BigNumber.from(100);
+        const newUserAssetsInWei = BigNumber.from(currentBalance.value!).mul(multiplier).div(divider);
+        return helperFormatUnit(newUserAssetsInWei.toString(), unit);
+    }
+
+    useEffect(() => {
+        setUserAllowance(helperFormatUnit(userAllowanceInWei.toString(), unit));
+    }, [ unit ])  // eslint-disable-line react-hooks/exhaustive-deps
+
+    useEffect(() => {
+        if (userAllowance) {
+            setUserAllowanceInWei(helperParseUnit(userAllowance, unit));
+        } else {
+            setUserAllowanceInWei(BigNumber.from("0"));
+        }
+    }, [userAllowance])  // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
-        <div className="w-full flex flex-col justify-start items-start gap-2">
+        <TransactionPanel>
 
-            {/* <div className="text-slate-100 text-left">
-                Check that you allowed the asset to be controled by the contest contract.
-            </div> */}
-
-            <div className="py-4 w-full flex flex-col justify-start items-start gap-4 text-slate-100">
-
-                <ContestContractWriteView 
-                    label="Approve amount"
-                    name="Click here to approve"
-                    value={ userAllowance }
-                    setValue={ (event) => setUserAllowance(event.target.value) }
-                    onClick={ (transaction.isSuccess) ? writeContract.reset : () => { writeContract.write?.() } }
-                    disabled={ !writeContract.write }
-                    isError={ writeContract.isError || transaction.isError }
-                    isWaiting={ ( writeContract.isLoading || writeContract.isSuccess ) && transaction.isLoading }
-                    isSucces={ transaction.isSuccess }
-                />
-
-                <div className="w-full flex flew-row justify-start items-start gap-4">
-                    <EthAddress address={ asset.value! } label="Asset" />
-                    <ContestCurrentValueview 
-                        label="Allowance"
-                        value={ allowance.value }
-                        isRefetching={ allowance.isRefetching }
-                        refetch={ allowance.refetch }
-                    />
-                </div>
-
+            <div className="text-slate-100 text-left text-xl">
+                Make sure to allow enough funds to be managed by the asset.
             </div>
 
-        </div>        
+            <TransactionInfo label="Current allowance" value={ displayCurrentAllowance } />
+
+            <div className="w-full rounded-lg bg-slate-900 relative">
+                <div className="w-full flex justify-center items-center">
+                    <TransactionInput
+                        value={ userAllowance }
+                        setValue={ (event) => setUserAllowance( event.target.value ) }
+                    />
+                </div>
+                <button 
+                    className="absolute w-20 text-center border rounded-lg border-slate-100 right-5 top-1/4"
+                    onClick={ () => setUserAllowance((Number(displayCurrentBalance)).toString()) }
+                >
+                    Max
+                </button>
+            </div>
+
+            <ChooseRate setRate={(item) => setUserAllowance(changeRate(item))}/>
+            
+            <TransactionInfo label="Current Asset balance" value={ displayCurrentBalance } />
+
+            <div className="w-full flex flex-row justify-between items-center text-normal text-left font-semibold gap-2">
+                <ChooseUnit setUnit={ setUnit } currentUnit= { unit }/>
+                <EthAddress address={ currentAsset.value! } label="Asset" />
+            </div>
+
+            <TransactionButton
+                onClick={ (transaction.isSuccess) ? () => { writeContract.reset(); setUserAllowance(""); currentAllowance.refetch() } : () => { writeContract.write?.() } }
+                disabled={ !writeContract.write }
+                isError={ writeContract.isError || transaction.isError }
+                isWaiting={ ( writeContract.isLoading || writeContract.isSuccess ) && transaction.isLoading }
+                isSuccess={ transaction.isSuccess }
+            >
+                Approve
+            </TransactionButton>
+        
+        </TransactionPanel>   
     )
 }
