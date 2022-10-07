@@ -50,12 +50,12 @@ export const ContestView = (props: { address: string }) => {
 
             <div className="
                 w-full
-                flex flex-row justify-start items-center
+                flex flex-row justify-strech items-center gap-4
                 text-slate-100
                 overflow-hidden
-                border border-slate-600 rounded-lg
-                divide-x divide-slate-600
                 "
+                // border border-slate-600 rounded-lg
+                // divide-x divide-slate-600                
             >
 
                 <ContestAssetSymbol 

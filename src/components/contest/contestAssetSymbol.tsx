@@ -12,13 +12,17 @@ interface PropsContestAssetSymbol {
 export const ContestAssetSymbol = (props: PropsContestAssetSymbol) => {
     return (
         <div className="
+            h-52
             w-full
             mx-auto
             pt-8
             pb-4
             px-4
             flex flex-col justify-start items-center gap-2
-            group     
+            group
+            rounded-lg
+            bg-slate-900
+            overflow-hidden
             "
         >
             

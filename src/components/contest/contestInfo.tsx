@@ -15,6 +15,7 @@ export const ContestInfo = (props: { info: string, icon: ReactElement|null }) =>
             rounded-lg
             border
             border-slate-600
+            bg-slate-900
             divide-x divide-slate-600
             "
         >
