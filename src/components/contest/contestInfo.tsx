@@ -32,14 +32,18 @@ export const ContestInfo = (props: { info: string, icon: ReactElement|null }) =>
 export const ContestInfoLastUpdate = (props: {contractAddress: string }) => {
     const lastUpdate = useContractReadLastUpdate(props.contractAddress!);
     const displayLastUpdate = (lastUpdate.value) ? ComputeCurrentTimeDifference(Number(lastUpdate.value)*1000) : "";
-    return (
-        <ToolTip tooltip="When the contest was last updated">
-            <ContestInfo
-                info={ displayLastUpdate }
-                icon={ <ArrowPathIcon className="h-6 w-6 text-slate-100"/> }
-            />
-        </ToolTip>
-    );
+    if (lastUpdate.value === "0") {
+        return null;
+    } else {
+        return (
+            <ToolTip tooltip="When the contest was last updated">
+                <ContestInfo
+                    info={ displayLastUpdate }
+                    icon={ <ArrowPathIcon className="h-6 w-6 text-slate-100"/> }
+                />
+            </ToolTip>
+        );
+    }
 }
 
 export const ContestInfoVestingPeriod = (props: {contractAddress: string }) => {

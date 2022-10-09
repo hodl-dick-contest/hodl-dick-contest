@@ -25,9 +25,7 @@ export const ContestView = (props: { address: string }) => {
     const name = useContractReadName(props.address);
     const symbol = useContractReadSymbol(props.address);
 
-    const totalAssets = useContractReadTotalAssets(props.address!);
-    const totalSupply = useContractReadTotalSupply(props.address!);
-    const displayTotalAssets = (totalAssets.value) ? ethers.utils.formatEther(totalAssets.value) : "";
+    const totalSupply = useContractReadTotalSupply(props.address!);    
     const displayTotalSupply = (totalSupply.value) ? ethers.utils.formatEther(totalSupply.value) : "";
 
     return (
@@ -44,13 +42,9 @@ export const ContestView = (props: { address: string }) => {
             onClick={ () => naviguate("/contest/" + props.address )}
         >
 
-            <div className="py-2 text-2xl text-slate-100">
-                { name.value ? name.value : "" }
-            </div>
-
             <div className="
                 w-full
-                flex flex-row justify-strech items-center gap-4
+                flex flex-row justify-between items-center gap-4
                 text-slate-100
                 overflow-hidden
                 "
@@ -58,15 +52,14 @@ export const ContestView = (props: { address: string }) => {
                 // divide-x divide-slate-600                
             >
 
-                <ContestAssetSymbol 
-                    symbol={ assetSymbol.value ? assetSymbol.value : "" }
-                    assetAddress={ asset.value! }
-                    totalAssetOrSupply={ displayTotalAssets }
-                    isContest={ false }
-                />
+
+                <div className="py-2 text-2xl text-slate-100">
+                    { name.value ? name.value : "" }
+                </div>
 
                 <ContestAssetSymbol 
                     symbol={ symbol.value ? symbol.value : "" }
+                    baseSymbol={ assetSymbol.value ? assetSymbol.value : "" }
                     assetAddress={ props.address }
                     totalAssetOrSupply={ displayTotalSupply }
                     isContest={ true }
