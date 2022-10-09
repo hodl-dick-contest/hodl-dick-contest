@@ -4,7 +4,6 @@ import { ethers } from "ethers";
 import { useContractReadAsset, 
     useContractReadName, 
     useContractReadSymbol, 
-    useContractReadTotalAssets, 
     useContractReadTotalSupply 
 } from "../../hooks/useContractReadContest";
 
