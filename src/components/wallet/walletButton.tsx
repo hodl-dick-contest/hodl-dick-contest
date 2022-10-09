@@ -1,5 +1,4 @@
 
-import { Button } from "../common/button";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 
@@ -62,7 +61,22 @@ export const WalletButton = () => {
   
                 if (chain.unsupported) {
                   return (
-                    <Button text="wrong network" onClick={ openChainModal } />
+                    <button 
+                      className="
+                      h-9
+                      px-3
+                      flex flex-row items-center justify-start
+                      rounded-lg
+                      text-sm
+                      font-semibold
+                      text-stone-200 hover:text-white
+                      bg-slate-800 hover:bg-purple-400/60
+                      transition ease-in-out duration-100 hover:scale-110
+                      "
+                      onClick={ openChainModal }
+                    >
+                      Wront network
+                    </button>                
                   );
                 }
   

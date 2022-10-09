@@ -13,7 +13,7 @@ export const ChooseRate = (props: { setRate: Dispatch<number>, values?: Array<nu
 
     return (
         <div className="w-full flex flex-row justify-between items-center gap-4">
-            { 
+            {
                 values.map((item, index) => (
                     <button 
                         key={ index }

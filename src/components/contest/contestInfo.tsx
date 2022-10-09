@@ -39,20 +39,20 @@ export const ContestInfoLastUpdate = (props: {contractAddress: string }) => {
                 icon={ <ArrowPathIcon className="h-6 w-6 text-slate-100"/> }
             />
         </ToolTip>
-    )
+    );
 }
 
 export const ContestInfoVestingPeriod = (props: {contractAddress: string }) => {
     const vestingPeriod = useContractReadVestingPeriod(props.contractAddress!);    
     const displayVestingPeriod = (vestingPeriod.value) ? convertSecondsToString(Number(vestingPeriod.value)) : "";
     return (
-        <ToolTip tooltip="Vesting period">
+        <ToolTip tooltip="Time during which profits made on other users withdrawing are vested">
             <ContestInfo
                 info={ displayVestingPeriod }
                 icon={ <ClockIcon className="h-6 w-6 text-slate-100"/> }
             />
         </ToolTip>
-    )    
+    );
 }
 
 export const ContestInfoVestingProfit = (props: {contractAddress: string }) => {
@@ -65,20 +65,20 @@ export const ContestInfoVestingProfit = (props: {contractAddress: string }) => {
                 icon={ <BanknotesIcon className="h-6 w-6 text-slate-100"/> }
             />
         </ToolTip>
-    )
+    );
 }
 
 export const ContestInfoWithdrawFee = (props: {contractAddress: string }) => {
     const withdrawFee = useContractReadWithdrawFee(props.contractAddress!);
     const displayWithdrawFee = (withdrawFee.value) ? ( 100 * Number(withdrawFee.value) / 10**9 ).toString() + " %" : "";
     return (
-        <ToolTip tooltip="Withdraw fees charged to user on deposited amount">
+        <ToolTip tooltip="Withdrawal fee paid when removing tokens from the contest">
             <ContestInfo
                 info={ displayWithdrawFee }
                 icon={ <ChartPieIcon className="h-6 w-6 text-slate-100"/> }
             />
         </ToolTip>
-    )
+    );
 }
 
 

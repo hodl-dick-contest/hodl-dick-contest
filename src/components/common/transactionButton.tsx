@@ -14,7 +14,7 @@ interface PropsTransactionButton {
 export const TransactionButton = (props: PropsTransactionButton) => {
     return (
         <button 
-            className="w-full py-4 relative text-normal text-left font-semibold rounded-lg bg-slate-900 py-[0.5] px-3 hover:bg-purple-400/60"
+            className="w-full py-4 relative flex justify-center text-normal text-left font-semibold rounded-lg bg-slate-900 px-3 hover:bg-purple-400/60"
             onClick={ props.onClick }
             disabled={ props.disabled }
         >

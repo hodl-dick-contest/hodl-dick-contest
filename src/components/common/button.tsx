@@ -10,41 +10,39 @@ interface IButton {
 export const Button = (props: IButton) => {
     return (
         <button
-            className="
+            className="            
             w-full            
-            flex flex-row items-center justify-center
+            py-2
             px-3
-            h-9            
-            border
-            border-0
-            rounded-lg
-            font-poppins 
-            font-bold
+            flex flex-row items-center justify-center
             text-md
             text-slate-200 hover:text-white
-            bg-slate-800 hover:bg-slate-700
-            group
+            font-bold
+            rounded-lg            
+            bg-slate-800 hover:bg-purple-400/60
             transition ease-in-out hover:scale-105 hover
+            group
             "
             onClick={ props.onClick }
             type={ "button" }
             disabled={ props.disabled }
         >
-            <div className="flex flex-row items-center justify-center">
+            {
+                (!props.icon) ? null :
                 <div className="group-hover:text-white">
                     { props.icon }
                 </div>
-                {
-                    ( !props.disabled ) ?
-                        <div className="group-hover:text-white">
-                            { props.text }
-                        </div> :
-                        <div className="text-stone-500 group-hover:text-white">
-                            { props.text }
-                        </div>
-
-                }
-            </div>
+            }
+            {
+                ( !props.disabled ) ?
+                <div className="group-hover:text-white"> 
+                    { props.text } 
+                </div> 
+                :
+                <div className="text-stone-500 group-hover:text-white"> 
+                    { props.text } 
+                </div>
+            }
         </button>
     );
 }
