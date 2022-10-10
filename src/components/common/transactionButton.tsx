@@ -3,9 +3,9 @@ import { ShowIcon } from "./transactionIcon";
 
 
 interface PropsTransactionButton {
-    isError: boolean;
-    isWaiting: boolean;
-    isSuccess: boolean;
+    isError?: boolean;
+    isWaiting?: boolean;
+    isSuccess?: boolean;
     onClick: () => void;
     disabled: boolean;
     children: ReactNode;
@@ -18,16 +18,23 @@ export const TransactionButton = (props: PropsTransactionButton) => {
             onClick={ props.onClick }
             disabled={ props.disabled }
         >
+
             <div className="w-full flex justify-center items-center">
                 { props.children }
             </div>
-            <div className="absolute right-5 top-1/4">
-                <ShowIcon
-                    isError={ props.isError }
-                    isWaiting={ props.isWaiting }
-                    isSuccess={ props.isSuccess }
-                />
-            </div>
+
+            {
+                ( props.disabled ) ? null :
+                <div className="absolute right-5 top-1/4">
+                    <ShowIcon
+                        isError={ props.isError }
+                        isWaiting={ props.isWaiting }
+                        isSuccess={ props.isSuccess }
+                    />
+                </div>
+
+            }
+
         </button>
     );
 }

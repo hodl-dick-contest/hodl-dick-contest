@@ -2,9 +2,9 @@ import { ArrowPathIcon, CheckCircleIcon, ExclamationCircleIcon, PaperAirplaneIco
 
 
 interface PropsShowIcon {
-    isError: boolean;
-    isWaiting: boolean; 
-    isSuccess: boolean;
+    isError?: boolean;
+    isWaiting?: boolean; 
+    isSuccess?: boolean;
 }
 
 export const ShowIcon = (props: PropsShowIcon) => {
