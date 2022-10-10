@@ -12,7 +12,7 @@ interface PropsUseContractReadValue {
     refetch: () => void;
 }
 
-const useContractReadByValue = (contractAddress: string, functionName: string, args?: Array<string>): PropsUseContractReadValue => {
+const useContractReadByValue = (contractAddress: string, functionName: string, args?: Array<string>|undefined ): PropsUseContractReadValue => {
 
     const [ value, setValue ] = useState<string>();    
     const { contractAbi } = useContractAbi();
@@ -21,7 +21,6 @@ const useContractReadByValue = (contractAddress: string, functionName: string, a
         contractInterface: contractAbi,
         functionName: functionName,
         args: args,
-        // cacheTime: 30_000,
         cacheOnBlock: true,
     });
 
@@ -44,12 +43,12 @@ export const useContractReadBalanceOf = (contractAddress: string, address?: stri
     return useContractReadByValue(contractAddress, "balanceOf", [ address! ]);
 }
 
-export const useContractReadConvertToAssets = (contractAddress: string, shares: string): PropsUseContractReadValue => {
-    return useContractReadByValue(contractAddress, "convertToAssets", [ shares ]);
+export const useContractReadConvertToAssets = (contractAddress: string, shares: string|undefined): PropsUseContractReadValue => {
+    return useContractReadByValue(contractAddress, "convertToAssets", (shares) ? [ shares ] : undefined);
 }
 
-export const useContratReadConvertToShares = (contractAddress: string, assets: string): PropsUseContractReadValue => {
-    return useContractReadByValue(contractAddress, "convertToShares", [ assets ]);
+export const useContratReadConvertToShares = (contractAddress: string, assets: BigNumber|undefined): PropsUseContractReadValue => {
+    return useContractReadByValue(contractAddress, "convertToShares", (assets) ? [ assets.toString() ] : undefined);
 }
 
 export const useContractReadDecimals = (contractAddress: string): PropsUseContractReadValue => {
@@ -76,8 +75,8 @@ export const useContractReadName = (contractAddress: string): PropsUseContractRe
     return useContractReadByValue(contractAddress, "name");
 }
 
-export const useContractReadPreviewDeposit = (contractAddress: string, deposit: BigNumber): PropsUseContractReadValue => {
-    return useContractReadByValue(contractAddress, "previewDeposit", [deposit.toString()] );
+export const useContractReadPreviewDeposit = (contractAddress: string, deposit: BigNumber|undefined): PropsUseContractReadValue => {
+    return useContractReadByValue(contractAddress, "previewDeposit", (deposit) ? [deposit.toString()] : undefined );
 }
 
 export const useContractReadPreviewRedeem = (contractAddress: string, withdraw: BigNumber): PropsUseContractReadValue => {

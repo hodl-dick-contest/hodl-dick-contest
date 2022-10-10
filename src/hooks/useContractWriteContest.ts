@@ -3,14 +3,14 @@ import { useContractAbi } from "./useContractAbi";
 import { useContractWrite, usePrepareContractWrite, useWaitForTransaction } from "wagmi";
 
 
-const useContractWriteByValue = (contractAddress: string, functionName: string, args?: Array<string>) => {
+const useContractWriteByValue = (contractAddress: string, functionName: string, args?: Array<string>|undefined) => {
     const { contractAbi } = useContractAbi();
     const { config } = usePrepareContractWrite({
         addressOrName: contractAddress,
         contractInterface: contractAbi,
         functionName: functionName,
         args: args,
-
+        cacheTime: 10_000,
     })
     const writeContract = useContractWrite(config);
     const transaction = useWaitForTransaction({ hash: writeContract.data?.hash });
