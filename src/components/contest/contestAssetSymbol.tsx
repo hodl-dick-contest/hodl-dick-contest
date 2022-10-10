@@ -12,6 +12,8 @@ interface PropsContestAssetSymbol {
 
 export const ContestAssetSymbol = (props: PropsContestAssetSymbol) => {
 
+    if (!props.baseSymbol) return null;
+    
     let symbol;
     if (props.baseSymbol === "WETH") {
         symbol = <EthereumIcon />;
@@ -20,6 +22,7 @@ export const ContestAssetSymbol = (props: PropsContestAssetSymbol) => {
     } else {
         symbol = <PolygonIcon />;
     }
+
 
     return (
         <div className="
