@@ -51,12 +51,10 @@ export const PageContest = () => {
                     <Tab.List className="pt-4 pb-2 w-full flex flex-row justify-start items-center gap-4">                    
                         <TabTitle> Deposit </TabTitle>
                         <TabTitle> Redeem </TabTitle>
-                        <TabTitle> Approve </TabTitle>
                         <TabTitle> Parameters </TabTitle>
                     </Tab.List>
 
                     <Tab.Panels className="w-full flex py-2">
-
 
                         <TabPanel> 
                             <ContestDepositAsset contractAddress={ contractAddress! } />
@@ -64,10 +62,6 @@ export const PageContest = () => {
 
                         <TabPanel>
                             <ContestWithdrawAsset contractAddress={ contractAddress! } />
-                        </TabPanel>
-
-                        <TabPanel> 
-                            <ContestApproveAsset contractAddress={ contractAddress! } />
                         </TabPanel>
 
                         <TabPanel>

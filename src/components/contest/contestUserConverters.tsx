@@ -15,7 +15,6 @@ export const ContestUserConvertToAssets = (props: { address?: string }) => {
             fetched={ (!converter.isLoading && !converter.isError ) ? converter.value : "" }
         />
     );
-
 }
 
 export const ContestUserConvertToShares = (props: { address?: string }) => {

@@ -183,7 +183,7 @@ export const ContestDepositAsset = (props: { contractAddress: string }) => {
         <TransactionPanel>
 
             <div className="text-slate-100 text-left text-xl">
-                Deposit funds and show the you're an OG 🍆
+                Deposit funds and show you're an OG 🍆
             </div>
 
             <TransactionInfo label="Current Asset balance" value={ displayCurrentAssetBalance } />
