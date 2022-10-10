@@ -6,7 +6,7 @@ interface PropsTransactionButton {
     isError?: boolean;
     isWaiting?: boolean;
     isSuccess?: boolean;
-    onClick: () => void;
+    onClick?: () => void;
     disabled: boolean;
     children: ReactNode;
 }

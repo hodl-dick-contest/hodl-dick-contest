@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, ReactNode } from "react";
 import { useAccount } from "wagmi";
 import { BigNumber } from "ethers";
 import { useDebounce } from 'use-debounce';
@@ -15,30 +15,27 @@ import { ChooseRate } from "../common/choosePercentage";
 import { EthAddress } from "../wallet/ethAddress";
 import { helperFormatUnit, helperParseUnit } from "../../utils/convertValueBasedOnUnit";
 
-const ZeroBalanceButton = () => {
+
+const ZeroActionButton = (props: { children: ReactNode }) => {
     return (
         <TransactionButton
-            onClick={ () => console.log("enter amount") }
             disabled={ false }
         >
-            Enter deposit amount
+            { props.children }
         </TransactionButton>
     );
 }
 
-
-const ApproveDepositButton = (props: { assetAddress: string, contractAddress: string, approveAmmount: BigNumber|undefined, onTransactionSucess: () => void }) => {
+const ApproveDepositButton = (props: { assetAddress: string, contractAddress: string, approveAmmount: BigNumber|undefined, onTransactionSucess: () => void, assetSymbol: string }) => {
     
     const [ debouncedApproveAmmount ] = useDebounce(props.approveAmmount, 1000);
     const approve = useContractWriteApprove(props.assetAddress, props.contractAddress, debouncedApproveAmmount);
-
-    console.log("ApproveDepositButton");
 
     useEffect(() => {
         if (approve.transaction.isSuccess) {
             props.onTransactionSucess();
         }
-    }, [ approve.transaction.isSuccess ]);
+    }, [ approve.transaction.isSuccess ]); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <TransactionButton
@@ -48,7 +45,7 @@ const ApproveDepositButton = (props: { assetAddress: string, contractAddress: st
             isWaiting={ ( approve.writeContract.isLoading || approve.writeContract.isSuccess ) && approve.transaction.isLoading }
             isSuccess={ approve.transaction.isSuccess }
         >
-            { `Authorize deposit` }
+            { `Authorize deposit for ${ props.assetSymbol }` }
         </TransactionButton>
     );
 }
@@ -58,13 +55,11 @@ const DepositButton = (props: { contractAddress: string, depositAmount: BigNumbe
     const [ debouncedDepositAmount ] = useDebounce(props.depositAmount, 1000);
     const deposit = useContractWriteDeposit(props.contractAddress, debouncedDepositAmount, props.receiverAddress);
 
-    console.log("DepositButton");
-
     useEffect(() => {
         if (deposit.transaction.isSuccess) {
             props.clearDepositAmount();
         }
-    }, [ deposit.transaction ]);
+    }, [ deposit.transaction.isSuccess ]); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <TransactionButton
@@ -83,16 +78,26 @@ const DepositLogic = (props: { contractAddress: string, depositAmount: BigNumber
 
     const { address } = useAccount();
     const asset = useContractReadAsset(props.contractAddress);
+    const assetSymbol = useContractReadSymbol(asset.value!);
     const currentAllowance = useContractReadAllowance(asset.value!, address!, props.contractAddress!);
+    const currentAssetBalance = useContractReadBalanceOf(asset.value!, address!);
     
     let shouldFirstApprove: boolean|undefined;
     
-    console.log("DepositLogic");
-    console.log(props.depositAmount);
-    console.log("Current all", currentAllowance.value);
+    if ( !props.depositAmount || !currentAssetBalance.value || props.depositAmount.eq(BigNumber.from("0")) ) { 
+        return (
+            <ZeroActionButton > 
+                Enter deposit amount
+            </ZeroActionButton>
+        );
+    }
 
-    if ( props.depositAmount === undefined || props.depositAmount.eq(BigNumber.from("0")) ) { 
-        return <ZeroBalanceButton />;
+    if ( BigNumber.from(currentAssetBalance.value).lt(props.depositAmount) ) {
+        return (
+            <ZeroActionButton > 
+                { `Insufficient funds for ${ assetSymbol.value }` }
+            </ZeroActionButton>
+        );
     }
 
     if ( asset.value !== undefined && currentAllowance.value !== undefined ) {
@@ -111,6 +116,7 @@ const DepositLogic = (props: { contractAddress: string, depositAmount: BigNumber
                 contractAddress={ props.contractAddress }
                 approveAmmount={ props.depositAmount.add(BigNumber.from("1")) }
                 onTransactionSucess={ () => currentAllowance.refetch() }
+                assetSymbol={ assetSymbol.value! }
             />
         );
     } else if (shouldFirstApprove === false ) { 

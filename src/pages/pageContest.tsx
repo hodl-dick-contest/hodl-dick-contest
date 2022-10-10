@@ -1,6 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { Page } from "../components/common/page";
-import { ContestApproveAsset } from "../components/contest/contestApproveAsset";
 import { ContestDepositAsset } from "../components/contest/contestDepositAsset";
 import { ContestItemsWarpper } from "../components/contest/contestItemsWrapper";
 import { ContestParameters } from "../components/contest/contestParameters";

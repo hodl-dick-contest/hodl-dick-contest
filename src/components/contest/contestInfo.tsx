@@ -1,7 +1,15 @@
 import { ReactElement } from "react";
 import { ethers } from "ethers";
 import { ChartPieIcon, ClockIcon, ArrowPathIcon, BanknotesIcon } from "@heroicons/react/24/outline";
-import { useContractReadDecimals, useContractReadLastUpdate, useContractReadTotalAssets, useContractReadVestingPeriod, useContractReadVestingProfit, useContractReadWithdrawFee } from "../../hooks/useContractReadContest";
+
+import { 
+    useContractReadDecimals,
+    useContractReadLastUpdate, 
+    useContractReadTotalAssets, 
+    useContractReadVestingPeriod, 
+    useContractReadWithdrawFee 
+} from "../../hooks/useContractReadContest";
+
 import { ToolTip } from "../common/tooltip";
 import { convertSecondsToString } from "../../utils/convertSecondsToString";
 import { ComputeCurrentTimeDifference } from "../../utils/computeTimeDifference";
