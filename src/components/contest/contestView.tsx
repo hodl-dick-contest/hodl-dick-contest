@@ -9,9 +9,10 @@ import { useContractReadAsset,
 
 import { ContestInfoLastUpdate, 
     ContestInfoVestingPeriod, 
-    ContestInfoVestingProfit, 
+    ContestInfoTvl, 
     ContestInfoWithdrawFee 
 } from "./contestInfo";
+
 import { ContestAssetSymbol } from "./contestAssetSymbol";
 
 
@@ -70,7 +71,7 @@ export const ContestView = (props: { address: string }) => {
                 <ContestInfoVestingPeriod contractAddress={ props.address! } />
                 <ContestInfoWithdrawFee contractAddress={ props.address! } />
                 <ContestInfoLastUpdate contractAddress={ props.address! }/>
-                <ContestInfoVestingProfit contractAddress={ props.address! } />
+                <ContestInfoTvl contractAddress={ props.address! } />
             </div>
 
         </div>

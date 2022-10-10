@@ -20,7 +20,7 @@ export const ContestUserConvertToAssets = (props: { address?: string }) => {
 
 export const ContestUserConvertToShares = (props: { address?: string }) => {
     const [ userAssets, setUserAssets] = useState<BigNumber>(BigNumber.from(1));
-    const converter = useContratReadConvertToShares(props.address!, userAssets.toString());
+    const converter = useContratReadConvertToShares(props.address!, userAssets);
     return (
         <ContestUserPreview
             label={ "Convert assets to shares" }

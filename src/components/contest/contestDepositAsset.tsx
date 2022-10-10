@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { useAccount } from "wagmi";
 import { BigNumber } from "ethers";
+import { useDebounce } from 'use-debounce';
 
-import { useContractReadAsset, useContractReadBalanceOf, useContractReadPreviewDeposit, useContratReadConvertToShares } from "../../hooks/useContractReadContest";
-import { useContractWriteDeposit } from "../../hooks/useContractWriteContest";
+import { useContractReadAllowance, useContractReadAsset, useContractReadBalanceOf, useContractReadPreviewDeposit, useContractReadSymbol, useContratReadConvertToShares } from "../../hooks/useContractReadContest";
+import { useContractWriteApprove, useContractWriteDeposit } from "../../hooks/useContractWriteContest";
 
 import { ChooseUnit } from "../common/chooseUnit";
 import { TransactionButton } from "../common/transactionButton";
@@ -14,6 +15,127 @@ import { ChooseRate } from "../common/choosePercentage";
 import { EthAddress } from "../wallet/ethAddress";
 import { helperFormatUnit, helperParseUnit } from "../../utils/convertValueBasedOnUnit";
 
+const ZeroBalanceButton = () => {
+    return (
+        <TransactionButton
+            onClick={ () => console.log("enter amount") }
+            disabled={ false }
+        >
+            Enter deposit amount
+        </TransactionButton>
+    );
+}
+
+
+const ApproveDepositButton = (props: { assetAddress: string, contractAddress: string, approveAmmount: BigNumber|undefined, onTransactionSucess: () => void }) => {
+    
+    const [ debouncedApproveAmmount ] = useDebounce(props.approveAmmount, 1000);
+    const approve = useContractWriteApprove(props.assetAddress, props.contractAddress, debouncedApproveAmmount);
+
+    console.log("ApproveDepositButton");
+
+    useEffect(() => {
+        if (approve.transaction.isSuccess) {
+            props.onTransactionSucess();
+        }
+    }, [ approve.transaction.isSuccess ]);
+
+    return (
+        <TransactionButton
+            onClick={ () => approve.writeContract.write?.() }
+            disabled={ !approve.writeContract.write }
+            isError={ approve.writeContract.isError || approve.transaction.isError }
+            isWaiting={ ( approve.writeContract.isLoading || approve.writeContract.isSuccess ) && approve.transaction.isLoading }
+            isSuccess={ approve.transaction.isSuccess }
+        >
+            { `Authorize deposit` }
+        </TransactionButton>
+    );
+}
+
+const DepositButton = (props: { contractAddress: string, depositAmount: BigNumber|undefined, receiverAddress: string, clearDepositAmount: () => void }) => {
+
+    const [ debouncedDepositAmount ] = useDebounce(props.depositAmount, 1000);
+    const deposit = useContractWriteDeposit(props.contractAddress, debouncedDepositAmount, props.receiverAddress);
+
+    console.log("DepositButton");
+
+    useEffect(() => {
+        if (deposit.transaction.isSuccess) {
+            props.clearDepositAmount();
+        }
+    }, [ deposit.transaction ]);
+
+    return (
+        <TransactionButton
+            onClick={ () => deposit.writeContract.write?.()  }
+            disabled={ false }
+            isError={ deposit.writeContract.isError || deposit.transaction.isError }
+            isWaiting={ ( deposit.writeContract.isLoading || deposit.writeContract.isSuccess ) && deposit.transaction.isLoading }
+            isSuccess={ deposit.transaction.isSuccess }
+        >
+            Deposit
+        </TransactionButton>
+    );
+}
+
+const DepositLogic = (props: { contractAddress: string, depositAmount: BigNumber|undefined, clearDepositAmount: () => void }) => {
+
+    const { address } = useAccount();
+    const asset = useContractReadAsset(props.contractAddress);
+    const currentAllowance = useContractReadAllowance(asset.value!, address!, props.contractAddress!);
+    
+    let shouldFirstApprove: boolean|undefined;
+    
+    console.log("DepositLogic");
+    console.log(props.depositAmount);
+    console.log("Current all", currentAllowance.value);
+
+    if ( props.depositAmount === undefined || props.depositAmount.eq(BigNumber.from("0")) ) { 
+        return <ZeroBalanceButton />;
+    }
+
+    if ( asset.value !== undefined && currentAllowance.value !== undefined ) {
+        const allowanceInWei = BigNumber.from(currentAllowance.value);
+        if ( props.depositAmount.gt(allowanceInWei) ) {
+            shouldFirstApprove = true;
+        } else {
+            shouldFirstApprove = false;
+        }
+    }
+
+    if ( shouldFirstApprove === true) {
+        return (
+            <ApproveDepositButton
+                assetAddress={ asset.value! }
+                contractAddress={ props.contractAddress }
+                approveAmmount={ props.depositAmount.add(BigNumber.from("1")) }
+                onTransactionSucess={ () => currentAllowance.refetch() }
+            />
+        );
+    } else if (shouldFirstApprove === false ) { 
+        return (
+            <DepositButton
+                contractAddress={ props.contractAddress }
+                depositAmount={ props.depositAmount! }
+                receiverAddress={ address! }
+                clearDepositAmount={ props.clearDepositAmount }
+            />
+        );
+    } else {
+        return (
+            <TransactionButton
+                onClick={ () => console.log("waiting") }
+                disabled={ false }
+                isError={ false }
+                isWaiting={ false }
+                isSuccess={ false }
+            >
+                Waiting
+            </TransactionButton>
+        );
+    }
+}
 
 export const ContestDepositAsset = (props: { contractAddress: string }) => {
 
@@ -22,14 +144,16 @@ export const ContestDepositAsset = (props: { contractAddress: string }) => {
     const [ unit, setUnit ] = useState<string>("ether");
     const [ userAssets, setUserAssets] = useState<string>("");
     const [ userAssetsInWei, setUserAssetsInWei] = useState<BigNumber>(BigNumber.from("0"));
+    const [ debounceUserAssetsInWei ] = useDebounce(userAssetsInWei, 2000);
 
     const asset = useContractReadAsset(props.contractAddress);
+
     const currentShareBalance = useContractReadBalanceOf(props.contractAddress, address!);
     const currentAssetBalance = useContractReadBalanceOf(asset.value!, address!);
-    const depositConvertToShare = useContratReadConvertToShares(props.contractAddress, userAssetsInWei.toString());
-    const previewDeposit = useContractReadPreviewDeposit(props.contractAddress, userAssetsInWei);
-    const { writeContract, transaction } = useContractWriteDeposit(props.contractAddress, userAssetsInWei, address!);
-
+    
+    const previewDeposit = useContractReadPreviewDeposit(props.contractAddress, (debounceUserAssetsInWei) ? debounceUserAssetsInWei : undefined);
+    const depositConvertToShare = useContratReadConvertToShares(props.contractAddress, (debounceUserAssetsInWei) ? debounceUserAssetsInWei : undefined);
+    
     const displayCurrentAssetBalance = helperFormatUnit(currentAssetBalance.value, unit);
     const displayReceivedShares = helperFormatUnit(depositConvertToShare.value, unit);
     const displayFutureShareBalance = (currentShareBalance.value && previewDeposit.value ) ?
@@ -88,15 +212,11 @@ export const ContestDepositAsset = (props: { contractAddress: string }) => {
                 <EthAddress address={ props.contractAddress } label="Contest" />
             </div>
 
-            <TransactionButton
-                onClick={ (transaction.isSuccess) ? () => { writeContract.reset(); setUserAssets(""); currentShareBalance.refetch() } : () => { writeContract.write?.() } }
-                disabled={ !writeContract.write }
-                isError={ writeContract.isError || transaction.isError }
-                isWaiting={ ( writeContract.isLoading || writeContract.isSuccess ) && transaction.isLoading }
-                isSuccess={ transaction.isSuccess }
-            >
-                Deposit
-            </TransactionButton>
+            <DepositLogic 
+                contractAddress={ props.contractAddress }
+                depositAmount={ debounceUserAssetsInWei }
+                clearDepositAmount={ () => setUserAssets("0") }
+            />
         
         </TransactionPanel>        
     );
