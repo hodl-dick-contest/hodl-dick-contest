@@ -1,6 +1,7 @@
 import { ReactElement } from "react";
+import { ethers } from "ethers";
 import { ChartPieIcon, ClockIcon, ArrowPathIcon, BanknotesIcon } from "@heroicons/react/24/outline";
-import { useContractReadLastUpdate, useContractReadVestingPeriod, useContractReadVestingProfit, useContractReadWithdrawFee } from "../../hooks/useContractReadContest";
+import { useContractReadDecimals, useContractReadLastUpdate, useContractReadTotalAssets, useContractReadVestingPeriod, useContractReadVestingProfit, useContractReadWithdrawFee } from "../../hooks/useContractReadContest";
 import { ToolTip } from "../common/tooltip";
 import { convertSecondsToString } from "../../utils/convertSecondsToString";
 import { ComputeCurrentTimeDifference } from "../../utils/computeTimeDifference";
@@ -59,17 +60,33 @@ export const ContestInfoVestingPeriod = (props: {contractAddress: string }) => {
     );
 }
 
-export const ContestInfoVestingProfit = (props: {contractAddress: string }) => {
-    const vestingProfit = useContractReadVestingProfit(props.contractAddress!);
-    const displayVestingProfit = (vestingProfit.value) ? vestingProfit.value.toString() : "";
-    return (
-        <ToolTip tooltip="Profit vested so far">
-            <ContestInfo
-                info={ displayVestingProfit }
-                icon={ <BanknotesIcon className="h-6 w-6 text-slate-100"/> }
-            />
-        </ToolTip>
-    );
+export const ContestInfoTvl = (props: {contractAddress: string }) => {
+    const totalAssets = useContractReadTotalAssets(props.contractAddress!);
+    const decimals = useContractReadDecimals(props.contractAddress!);    
+    if ( !totalAssets.value || !decimals.value ) {
+        return null
+    } else {
+        const tvl = Number(ethers.utils.formatUnits(totalAssets.value, decimals.value));
+        if (tvl < 0.0001) { 
+            return (
+                <ToolTip tooltip={`Total value locked ${ tvl}`}>
+                    <ContestInfo
+                        info={ "~0" }
+                        icon={ <BanknotesIcon className="h-6 w-6 text-slate-100"/> }
+                    />
+                </ToolTip>
+            );
+        } else {
+            return (
+                <ToolTip tooltip={`Total value locked ${ tvl}`}>
+                    <ContestInfo
+                        info={ tvl.toFixed(4) }
+                        icon={ <BanknotesIcon className="h-6 w-6 text-slate-100"/> }
+                    />
+                </ToolTip>
+            );
+        }
+    }
 }
 
 export const ContestInfoWithdrawFee = (props: {contractAddress: string }) => {
