@@ -16,8 +16,6 @@ export const useFactoryListChildren = (): QueryUseFactoryListChildren => {
     const contractAddress: string = process.env.REACT_APP_FACTORY_ADDRESS!;
     const contractAbi: string = JSON.stringify(factoryAddressJsonAbi);
 
-    console.log("Factory address", contractAddress);
-
     const { data, isLoading, isError } = useContractRead({
         addressOrName: contractAddress,
         contractInterface: contractAbi,
