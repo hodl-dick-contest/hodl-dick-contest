@@ -81,13 +81,14 @@ export const ContestWithdrawAsset = (props: { contractAddress: string }) => {
             </div>
 
             <ChooseRate setRate={(item) => setUserShares(changeRate(item)) }/>        
-            <TransactionInfo label="Assets you get" value={ displayPreviewRedeem } />
-            <TransactionInfo label="Expected asset balance" value={ displaySimulatedAssetBalance } />
-
+            
             <div className="w-full flex flex-row justify-between items-center text-normal text-left font-semibold gap-2">
                 <ChooseUnit setUnit={ setUnit } currentUnit= { unit }/>
                 <EthAddress address={ props.contractAddress } label="Contest" />
             </div>
+
+            <TransactionInfo label="Assets you get" value={ displayPreviewRedeem } />
+            <TransactionInfo label="Expected asset balance" value={ displaySimulatedAssetBalance } />
 
             <TransactionButton
                 onClick={ (transaction.isSuccess) ? () => { writeContract.reset(); setUserShares(""); currentShareBalance.refetch() } : () => { writeContract.write?.() } }

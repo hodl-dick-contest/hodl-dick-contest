@@ -74,7 +74,7 @@ export const ContestParameters = (props: {contractAddress: string}) => {
             />
 
             <ContestParameter 
-                label={ "Witdraw Fee" }
+                label={ "Withdraw Fee" }
                 value={ (100 * Number(withdrawFee.value)/1000000000).toString() + " %"  }
                 isLoading={ withdrawFee.isLoading }
                 isError={ withdrawFee.isError }       

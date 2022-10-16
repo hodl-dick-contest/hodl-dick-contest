@@ -75,7 +75,7 @@ export const WalletButton = () => {
                       "
                       onClick={ openChainModal }
                     >
-                      Wront network
+                      Wrong network
                     </button>                
                   );
                 }
