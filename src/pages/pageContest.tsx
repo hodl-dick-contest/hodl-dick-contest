@@ -4,9 +4,9 @@ import { ContestDepositAsset } from "../components/contest/contestDepositAsset";
 import { ContestItemsWarpper } from "../components/contest/contestItemsWrapper";
 import { ContestParameters } from "../components/contest/contestParameters";
 import { ContestSubTitle, ContestTitle } from "../components/contest/contestTitle";
+import { ContestRedeemShares } from "../components/contest/contestRedeemShares";
 import { ContestUserConvertToAssets, ContestUserConvertToShares } from "../components/contest/contestUserConverters";
 import { ContestUserPreviewDeposit, ContestUserPreviewWithdraw } from "../components/contest/contestUserPreviews";
-import { ContestWithdrawAsset } from "../components/contest/contestWithdrawAsset";
 import { useAccount } from "wagmi";
 import { Tab } from "@headlessui/react";
 import { TabTitle } from "../components/common/tabTitle";
@@ -60,7 +60,7 @@ export const PageContest = () => {
                         </TabPanel>
 
                         <TabPanel>
-                            <ContestWithdrawAsset contractAddress={ contractAddress! } />
+                            <ContestRedeemShares contractAddress={ contractAddress! } />
                         </TabPanel>
 
                         <TabPanel>

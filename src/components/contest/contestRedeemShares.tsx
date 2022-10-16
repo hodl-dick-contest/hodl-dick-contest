@@ -15,7 +15,7 @@ import { EthAddress } from "../wallet/ethAddress";
 import { helperFormatUnit, helperParseUnit } from "../../utils/convertValueBasedOnUnit";
 
 
-export const ContestWithdrawAsset = (props: { contractAddress: string }) => {
+export const ContestRedeemShares = (props: { contractAddress: string }) => {
 
     const { address } = useAccount();
 

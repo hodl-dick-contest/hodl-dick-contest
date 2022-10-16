@@ -215,11 +215,10 @@ export const ContestDepositAsset = (props: { contractAddress: string }) => {
                 <ChooseUnit setUnit={ setUnit } currentUnit= { unit }/>
                 <EthAddress address={ props.contractAddress } label="Contest" />
             </div>
-            
+
             <TransactionInfo label="Shares you get" value={ displayReceivedShares } />            
             <TransactionInfo label="Expected share balance" value={ displayFutureShareBalance } />
             
-
             <DepositLogic 
                 contractAddress={ props.contractAddress }
                 depositAmount={ debounceUserAssetsInWei }
