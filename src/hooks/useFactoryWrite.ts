@@ -19,8 +19,5 @@ const useFactoryWriteByValue = (contractAddress: string, functionName: string, a
 }
 
 export const useFactoryWriteDeploy = (contractAddress: string, asset: string, fees: string, vestingPeriod: string, gasLimit?: number) => {
-    console.log("asset", asset);
-    console.log("fees", fees);
-    console.log("vestingPeriod", vestingPeriod);
     return useFactoryWriteByValue(contractAddress, "deployHDC", [ asset, fees, vestingPeriod ], gasLimit);
 }

@@ -76,6 +76,7 @@ export const FactoryDeployReview = (props: PropsFactoryDeployReview) => {
                     isError={ writeContract.isError || transaction.isError }
                     isWaiting={ ( writeContract.isLoading || writeContract.isSuccess ) && transaction.isLoading }
                     isSuccess={ transaction.isSuccess }
+                    bgSecondary={ true }
                 >
                     Launch
                 </TransactionButton>

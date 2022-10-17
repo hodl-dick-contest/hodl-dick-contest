@@ -65,7 +65,10 @@ export const FactoryChooseVestingPeriod = (props: PropsFactoryChooseVestingPerio
                 { 
                     vestingPeriodChoices.map((choice, index) => {
                         return (
-                            <ChooseButton onClick={ () => props.setVestingPeriod(choice.value.toString()) } >
+                            <ChooseButton 
+                                key={ index } 
+                                onClick={ () => props.setVestingPeriod(choice.value.toString()) } 
+                            >
                                 { choice.display }
                             </ChooseButton>
                         )})

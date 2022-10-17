@@ -9,12 +9,27 @@ interface PropsTransactionButton {
     onClick?: () => void;
     disabled: boolean;
     children: ReactNode;
+    bgSecondary?: boolean;
 }
 
 export const TransactionButton = (props: PropsTransactionButton) => {
     return (
         <button 
-            className="w-full py-4 relative flex justify-center text-normal text-left font-semibold rounded-lg bg-slate-900 px-3 hover:bg-purple-400/60"
+            className={
+                `
+                w-full 
+                py-4 
+                relative 
+                flex 
+                justify-center 
+                text-normal 
+                text-left 
+                font-semibold 
+                rounded-lg     
+                px-3 
+                ${ (props.bgSecondary) ? "bg-purple-400/60" : "bg-slate-900" } hover:bg-purple-400/60
+                transition ease-in-out duration-150 hover:scale-105
+                `}
             onClick={ props.onClick }
             disabled={ props.disabled }
         >

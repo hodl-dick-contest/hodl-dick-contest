@@ -46,7 +46,6 @@ export const FactoryChooseWithdrawalFee = (props: PropsFactoryChooseWithdrawFee)
         supportedFees.refetch();
     }, [ withdrawFee ]) // eslint-disable-line react-hooks/exhaustive-deps
 
-
     return (
         <StepperPannel>
 
@@ -66,7 +65,10 @@ export const FactoryChooseWithdrawalFee = (props: PropsFactoryChooseWithdrawFee)
                 { 
                     withdrawalFeeChoices.map((choice, index) => {
                         return (
-                            <ChooseButton onClick={ () => props.setWithdrawlFee(choice.value.toString())} key={ index }>
+                            <ChooseButton 
+                                key={ index }
+                                onClick={ () => props.setWithdrawlFee(choice.value.toString())} 
+                            >
                                 { choice.display }
                             </ChooseButton>
                         );
