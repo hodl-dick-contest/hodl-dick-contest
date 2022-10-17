@@ -50,7 +50,7 @@ export const FactoryChooseWithdrawalFee = (props: PropsFactoryChooseWithdrawFee)
         <StepperPannel>
 
             <FactoryAction>
-                Choose a Witdrawal Fee
+                Choose a Withdrawal Fee
             </FactoryAction>
             
             <FactoryInput
