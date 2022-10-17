@@ -16,7 +16,7 @@ export const ChooseUnit = (props: { setUnit: Dispatch<string>, units?: Array<str
                 units.map((item, index) => (
                     <div 
                         className={`
-                            px-4 py-1.5 mx-auto text-sm font-mono hover:text-white
+                            px-4 py-1.5 mx-auto text-xs font-mono hover:text-white
                             ${ (units[index] === props.currentUnit) ? "bg-purple-400/60" : "bg-slate-900" }
                         `}
                         key={ index }

@@ -17,7 +17,7 @@ export const ChooseRate = (props: { setRate: Dispatch<number>, values?: Array<nu
                 values.map((item, index) => (
                     <button 
                         key={ index }
-                        className="w-28 px-7 py-4 font-semibold rounded-lg bg-slate-900 hover:bg-purple-400/60 hover:text-white"
+                        className="w-24 px-4 py-3 text-sm font-semibold rounded-lg bg-slate-900 hover:bg-purple-400/60 hover:text-white"
                         onClick={ () => props.setRate(item) }
                     >
                         { `${ item } %` }

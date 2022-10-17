@@ -14,7 +14,7 @@ export const TabTitle = (props: { children: ReactNode }) => {
                         rounded-lg
                         font-semibold
                         text-center                        
-                        text-lg
+                        text-base
                         ${selected ? "text-white": "text-slate-200"}
                         ${selected ? "bg-purple-400/60": "bg-slate-800"}
                         `}

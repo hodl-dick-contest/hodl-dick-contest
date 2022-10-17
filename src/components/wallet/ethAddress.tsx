@@ -12,10 +12,10 @@ export interface PropsEthAddress {
 export const EthAddress = (props: PropsEthAddress) => {
     return (
         <div className="px-4 py-1 flex flex-row items-center justify-start gap-2 rounded-lg bg-slate-900 border border-slate-600">
-            <div className="text-sm font-mono">
+            <div className="text-xs font-mono">
                 { props.label }
             </div>
-            <div className="text-sm font-mono truncate">
+            <div className="text-xs font-mono truncate">
                 { (props.address) ? truncateEthAddres(props.address) : null }
             </div>
             <div className="bg-slate-600 rounded-full p-1 transition ease-in-out duration-150 hover:scale-110">

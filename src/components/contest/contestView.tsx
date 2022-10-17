@@ -53,7 +53,7 @@ export const ContestView = (props: { address: string }) => {
             >
 
 
-                <div className="py-2 text-2xl text-slate-100">
+                <div className="py-2 text-xl text-slate-100">
                     { name.value ? name.value : "" }
                 </div>
 

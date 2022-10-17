@@ -15,7 +15,7 @@ export const Button = (props: IButton) => {
             py-2
             px-3
             flex flex-row items-center justify-center
-            text-md
+            text-base
             text-slate-200 hover:text-white
             font-bold
             rounded-lg            
