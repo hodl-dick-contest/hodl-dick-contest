@@ -4,8 +4,8 @@ import { ChartPieIcon, ClockIcon, ArrowPathIcon, BanknotesIcon } from "@heroicon
 
 import { 
     useContractReadDecimals,
-    useContractReadLastUpdate, 
-    useContractReadTotalAssets, 
+    useContractReadLastUpdate,
+    useContractReadTotalAssets,
     useContractReadVestingPeriod, 
     useContractReadWithdrawFee 
 } from "../../hooks/useContractReadContest";
@@ -23,9 +23,9 @@ export const ContestInfo = (props: { info: string, icon: ReactElement|null }) =>
             flex flex-row justify-start items-center
             rounded-lg
             border
-            border-slate-600
+            border-slate-700
             bg-slate-900
-            divide-x divide-slate-600
+            divide-x divide-slate-700
             "
         >
             <div className="h-full flex items-center justify-center px-3 py-1 mx-auto">
@@ -48,7 +48,7 @@ export const ContestInfoLastUpdate = (props: {contractAddress: string }) => {
             <ToolTip tooltip="When the contest was last updated">
                 <ContestInfo
                     info={ displayLastUpdate }
-                    icon={ <ArrowPathIcon className="h-6 w-6 text-slate-100"/> }
+                    icon={ <ArrowPathIcon className="h-4 w-4 text-slate-100"/> }
                 />
             </ToolTip>
         );
@@ -62,7 +62,7 @@ export const ContestInfoVestingPeriod = (props: {contractAddress: string }) => {
         <ToolTip tooltip="Time during which profits made on other users withdrawing are vested">
             <ContestInfo
                 info={ displayVestingPeriod }
-                icon={ <ClockIcon className="h-5 w-5 text-slate-100"/> }
+                icon={ <ClockIcon className="h-4 w-4 text-slate-100"/> }
             />
         </ToolTip>
     );
@@ -80,7 +80,7 @@ export const ContestInfoTvl = (props: {contractAddress: string }) => {
                 <ToolTip tooltip={`Total value locked ${ tvl}`}>
                     <ContestInfo
                         info={ "~0" }
-                        icon={ <BanknotesIcon className="h-5 w-5 text-slate-100"/> }
+                        icon={ <BanknotesIcon className="h-4 w-4 text-slate-100"/> }
                     />
                 </ToolTip>
             );
@@ -89,7 +89,7 @@ export const ContestInfoTvl = (props: {contractAddress: string }) => {
                 <ToolTip tooltip={`Total value locked ${ tvl}`}>
                     <ContestInfo
                         info={ tvl.toFixed(4) }
-                        icon={ <BanknotesIcon className="h-5 w-5 text-slate-100"/> }
+                        icon={ <BanknotesIcon className="h-4 w-4 text-slate-100"/> }
                     />
                 </ToolTip>
             );
@@ -104,7 +104,7 @@ export const ContestInfoWithdrawFee = (props: {contractAddress: string }) => {
         <ToolTip tooltip="Withdrawal fee paid when removing tokens from the contest">
             <ContestInfo
                 info={ displayWithdrawFee }
-                icon={ <ChartPieIcon className="h-5 w-5 text-slate-100"/> }
+                icon={ <ChartPieIcon className="h-4 w-4 text-slate-100"/> }
             />
         </ToolTip>
     );

@@ -15,7 +15,7 @@ export const ContestTitle = (props: { contractAddress: string }) => {
 
 export const ContestSubTitle = (props: { subtitle: string}) => {
     return (
-        <div className="w-full text-2xl text-slate-100">
+        <div className="w-full text-xl text-slate-100 font-normal">
             { props.subtitle }
         </div>
     );

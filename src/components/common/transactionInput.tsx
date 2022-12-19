@@ -11,15 +11,14 @@ export const TransactionInput = (props: PropsContestContractWriteView) => {
         <div className="w-full flex flex-row justify-start items-center gap-2">
             <input className="
                 w-full
-                py-4
-                px-4                
-                flex 
+                py-2
+                px-4        
+                flex
                 text-center
                 text-slate-100
                 bg-transparent
                 rounded-lg
-                outline-none
-                font-mono 
+                outline-none                
                 font-light
                 text-base
                 "   

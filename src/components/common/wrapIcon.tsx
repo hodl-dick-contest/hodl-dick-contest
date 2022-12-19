@@ -6,7 +6,7 @@ interface PropsWrapIcon {
 
 export const WrapIcon = (props: PropsWrapIcon) => {
     return (
-        <div className="group relative border border-purple-400 border-2 rounded-full">
+        <div className="group relative border border-slate-700 border-1 rounded-full">
             { props.children }
             <span
                 className="                    

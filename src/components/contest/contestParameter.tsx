@@ -19,13 +19,13 @@ export const ContestParameter = (props: PropsContestParameter) => {
     }
 
     return (
-        <div className="py-4 px-8 flex flex-row justify-between gap-4 text-sm">
+        <div className="py-4 px-8 flex flex-row justify-between gap-4">
 
-            <div className="text-left text-slate-100 font-mono font-light">
+            <div className="text-left text-slate-100 font-normal text-sm">
                 { props.label }
             </div>
 
-            <div className="text-right text-slate-100 font-mono font-light truncate">
+            <div className="text-right text-slate-100 font-light truncate text-sm">
                 { displayValue }
             </div>
             

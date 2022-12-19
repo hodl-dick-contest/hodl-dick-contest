@@ -188,8 +188,8 @@ export const ContestDepositAsset = (props: { contractAddress: string }) => {
     return (
         <TransactionPanel>
 
-            <div className="text-slate-100 text-left text-xl">
-                Deposit funds                             
+            <div className="text-slate-100 text-left text-xl font-normal">
+                Deposit funds                            
                 {/* and show you're an OG 🍆 */}
             </div>
 
@@ -203,7 +203,7 @@ export const ContestDepositAsset = (props: { contractAddress: string }) => {
                     />
                 </div>
                 <button 
-                    className="absolute w-20 text-center border rounded-lg border-slate-100 right-5 top-1/4"
+                    className="absolute w-20 text-center border rounded-lg border-slate-700 right-5 top-1/4 font-light text-sm"
                     onClick={ () => setUserAssets((Number(displayCurrentAssetBalance)).toString()) }
                 >
                     Max

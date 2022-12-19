@@ -15,7 +15,7 @@ export const BitcoinIcon = (props: PropsBlockchainIcon) => {
     } else if ( props.isSmall ) {
         return <BitcoinSvgLogo className="h-5 w-5" />;
     } else {
-        return <BitcoinSvgLogo className="h-9 w-9" />;
+        return <BitcoinSvgLogo className="h-7 w-7" />;
     }
 }
 
@@ -25,7 +25,7 @@ export const EthereumIcon = (props: PropsBlockchainIcon) => {
     } else if ( props.isSmall ) {
         return <EthereumSvgLogo className="h-5 w-5" />;
     } else {
-        return <EthereumSvgLogo className="h-9 w-9" />;
+        return <EthereumSvgLogo className="h-7 w-7" />;
     }
 }
 
@@ -37,6 +37,6 @@ export const PolygonIcon = (props: PropsBlockchainIcon) => {
     } else if ( props.isSmall ) {
         return <PolygonSvgLogo className="h-5 w-5" />;
     } else {
-        return <PolygonSvgLogo className="h-9 w-9" />;
+        return <PolygonSvgLogo className="h-7 w-7" />;
     }
 }

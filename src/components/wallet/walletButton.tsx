@@ -90,10 +90,10 @@ export const WalletButton = () => {
                         flex flex-row items-center justify-start gap-2
                         rounded-lg
                         text-sm
-                        font-semibold
+                        font-light
                         text-stone-200 hover:text-white
                         bg-slate-800 hover:bg-purple-400/60
-                        transition ease-in-out duration-100 hover:scale-110
+                        transition ease-in-out duration-100 hover:scale-[1.025]
                         "
                         onClick={ openChainModal }
                         type="button"
@@ -121,10 +121,10 @@ export const WalletButton = () => {
                         flex flex-row items-center justify-start
                         rounded-lg
                         text-sm
-                        font-semibold
+                        font-light
                         text-stone-200 hover:text-white
                         bg-slate-800 hover:bg-purple-400/60
-                        transition ease-in-out duration-100 hover:scale-110
+                        transition ease-in-out duration-100 hover:scale-[1.02]
                         "
                         onClick={ openAccountModal }
                         type="button"

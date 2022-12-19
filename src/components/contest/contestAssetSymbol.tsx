@@ -23,7 +23,6 @@ export const ContestAssetSymbol = (props: PropsContestAssetSymbol) => {
         symbol = <PolygonIcon />;
     }
 
-
     return (
         <div className="
         flex flex-col justify-start items-center gap-2
@@ -32,38 +31,21 @@ export const ContestAssetSymbol = (props: PropsContestAssetSymbol) => {
         overflow-hidden
         "
         >
-            {/* h-52
-            bg-slate-900
-            w-full
-            mx-auto
-            pt-8
-            pb-4
-            px-4 */}
             
             <div>
                 {
                     (props.isContest === true) ?
                     <WrapIcon>
-                        <div className="rounded-full bg-slate-700 p-3">
+                        <div className="rounded-full bg-slate-700 p-2">
                             { symbol }                            
                         </div>
                     </WrapIcon> :
-                    <div className="rounded-full bg-slate-700 p-3">
+                    <div className="rounded-full bg-slate-700 p-2">
                         { symbol }
                     </div>
                 }
             </div>
             
-            {/* <div className="text-xl">
-                { props.symbol }
-            </div>
-
-            <div className="h-6">
-                <div className="hidden group-hover:flex text-sm">
-                    { props.totalAssetOrSupply }
-                </div>
-            </div> */}
-
         </div>
     );
 }

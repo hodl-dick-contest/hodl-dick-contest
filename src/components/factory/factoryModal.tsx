@@ -53,8 +53,7 @@ export const FactoryModal = (props: { closeModal: () => void }) => {
                 setWithdrawlFee={ setWithdrawlFee }
                 onClickBack={ decreaseSelected }
                 onClickNext={ increaseSelected }
-            />
-                
+            />                
             break;    
         case 2:
             content = <FactoryChooseVestingPeriod

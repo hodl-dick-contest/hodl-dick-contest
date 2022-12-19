@@ -9,7 +9,7 @@ export const Header = () =>  {
                 <div className="text-4xl hover:animate-spin">
                     <EgplantIconBig />
                 </div>
-                <div className="text-left text-2xl font-bold text-slate-200 w-full">
+                <div className="text-left text-2xl font-normal text-slate-200 w-full">
                     The Holder Dick Contest
                 </div>
             </div>

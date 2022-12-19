@@ -17,9 +17,10 @@ export const ContestUserPreview = (props: PropsContestPreview) => {
              <div className="
                 w-1/3 
                 flex justify-start
-                text-left 
+                text-left
+                text-sm
                 text-slate-100 
-                font-mono font-light
+                font-light
                 "
             >
                 { props.label }
@@ -28,13 +29,14 @@ export const ContestUserPreview = (props: PropsContestPreview) => {
             <input className="
                 px-2
                 w-1/4 
-                flex 
+                flex
+                text-sm
                 text-right 
                 text-slate-100 
                 bg-slate-600 
                 rounded-lg 
                 outline-none hover:outline-slate-100 hover:outline-1 
-                font-mono font-light
+                font-light
                 " 
                 value={ props.value }
                 onChange={ (event) => props.updateValue(event.target.value.toString())} 
@@ -43,9 +45,10 @@ export const ContestUserPreview = (props: PropsContestPreview) => {
             <div className="
                 w-1/3 
                 flex justify-end
+                text-sm
                 text-right
                 text-slate-100 
-                font-mono font-light
+                font-light
                 "
             >
                 { ( props.fetched !== undefined ) ? props.fetched : null }

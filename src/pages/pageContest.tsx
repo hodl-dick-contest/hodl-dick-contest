@@ -30,13 +30,21 @@ export const PageContest = () => {
                 
                 <div className="w-full flex flex-row justify-between items-center gap-4">
 
-                    <div className="min-w-fit">
+                    <div className="min-w-fit font-light">
                         <ContestTitle contractAddress={ contractAddress! }/>
                     </div>
 
                     <div className="w-full flex flex-row justify-end items-center gap-4">
                         <button 
-                            className="rounded-full px-4 py-1 text-slate-200 hover:text-white bg-slate-600 hover:bg-purple-400/60 transition ease-in-out duration-150 hover:scale-105 font-semibold"
+                            className="
+                                px-4 py-1 
+                                bg-slate-600 hover:bg-purple-400/60 
+                                text-slate-200 hover:text-white 
+                                font-light hover:font-normal
+                                rounded-full
+                                text-sm
+                                transition ease-in-out duration-150 hover:scale-[1.02] 
+                                "
                             onClick={ () => navigate("/")}
                         >
                             Back to contests
@@ -47,13 +55,13 @@ export const PageContest = () => {
 
                 <Tab.Group>
 
-                    <Tab.List className="pt-4 pb-2 w-full flex flex-row justify-start items-center gap-4">                    
+                    <Tab.List className="pt-2 w-full flex flex-row justify-start items-center gap-4">                    
                         <TabTitle> Deposit </TabTitle>
                         <TabTitle> Redeem </TabTitle>
                         <TabTitle> Parameters </TabTitle>
                     </Tab.List>
 
-                    <Tab.Panels className="w-full flex py-2">
+                    <Tab.Panels className="w-full flex">
 
                         <TabPanel> 
                             <ContestDepositAsset contractAddress={ contractAddress! } />

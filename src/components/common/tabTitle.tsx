@@ -10,9 +10,9 @@ export const TabTitle = (props: { children: ReactNode }) => {
                     <button className={`
                         w-full
                         px-4
-                        py-4
+                        py-2
                         rounded-lg
-                        font-semibold
+                        ${selected ? "font-normal" : "font-light" }
                         text-center                        
                         text-base
                         ${selected ? "text-white": "text-slate-200"}

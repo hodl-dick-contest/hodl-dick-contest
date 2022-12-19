@@ -6,7 +6,7 @@ export const Footer = () =>  {
 
             <div className="flex flex-row items-center justify-between">
                 
-                <div className="text-sm text-slate-200">
+                <div className="text-sm text-slate-200 font-light">
                     Copyright © 2022 Holder 🍆 Contest
                 </div>
 

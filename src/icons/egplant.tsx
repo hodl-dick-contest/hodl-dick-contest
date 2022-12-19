@@ -1,7 +1,7 @@
 import { ReactComponent as EgplantSvg } from "./svg/egplant.svg";
 
 export const EgplantIcon = () => {
-    return <EgplantSvg className="h-9 w-9" />;
+    return <EgplantSvg className="h-6 w-6" />;
 }
 
 export const EgplantIconBig = () => {

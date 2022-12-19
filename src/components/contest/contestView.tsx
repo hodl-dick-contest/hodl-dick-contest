@@ -37,7 +37,7 @@ export const ContestView = (props: { address: string }) => {
             flex flex-col justify-between items-start gap-4
             bg-slate-800
             rounded-lg
-            transition easy-in-out duration-150 hover:scale-[1.02]
+            transition easy-in-out duration-150 hover:scale-[1.01]
             "
             onClick={ () => naviguate("/contest/" + props.address )}
         >
@@ -52,8 +52,7 @@ export const ContestView = (props: { address: string }) => {
                 // divide-x divide-slate-600                
             >
 
-
-                <div className="py-2 text-xl text-slate-100">
+                <div className="py-2 text-xl text-slate-100 font-light">
                     { name.value ? name.value : "" }
                 </div>
 

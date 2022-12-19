@@ -11,12 +11,18 @@ export const ChooseUnit = (props: { setUnit: Dispatch<string>, units?: Array<str
     }
 
     return (
-        <div className="flex flex-row justify-start items-center border rounded-lg border-slate-600 divide-x divide-slate-600 overflow-hidden">
+        <div className="
+            flex flex-row justify-start items-center 
+            border rounded-lg border-slate-700 
+            divide-x divide-slate-700
+            overflow-hidden
+            "
+        >
             {
                 units.map((item, index) => (
                     <div 
                         className={`
-                            px-4 py-1.5 mx-auto text-xs font-mono hover:text-white
+                            px-4 py-1.5 mx-auto text-xs font-light hover:text-white
                             ${ (units[index] === props.currentUnit) ? "bg-purple-400/60" : "bg-slate-900" }
                         `}
                         key={ index }
